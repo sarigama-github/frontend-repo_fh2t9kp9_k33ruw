@@ -3,6 +3,8 @@ import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import Features from './components/Features'
 import Programs from './components/Programs'
+import Coaches from './components/Coaches'
+import FAQ from './components/FAQ'
 import Footer from './components/Footer'
 import Lenis from 'lenis'
 import { motion } from 'framer-motion'
@@ -24,7 +26,6 @@ function App() {
     }
     requestAnimationFrame(raf)
 
-    // extra: scroll to features on space bar as playful interaction
     const onKey = (e) => {
       if (e.key === ' ' && !showModal) {
         e.preventDefault()
@@ -38,15 +39,20 @@ function App() {
   }, [showModal])
 
   return (
-    <div className="min-h-screen w-full bg-slate-950 text-white selection:bg-cyan-500/30">
-      {/* subtle noise + grid background */}
-      <div className="pointer-events-none fixed inset-0 bg-[radial-gradient(1200px_600px_at_50%_-10%,rgba(56,189,248,0.08),transparent),radial-gradient(800px_400px_at_80%_30%,rgba(147,51,234,0.06),transparent)]" />
+    <div className="min-h-screen w-full bg-slate-950 text-white selection:bg-cyan-500/30 relative">
+      {/* Dim layer to lower overall brightness if any embedded canvases are too bright */}
+      <div className="pointer-events-none fixed inset-0 z-[1] bg-black/40" />
+
+      {/* subtle color glows */}
+      <div className="pointer-events-none fixed inset-0 z-0 bg-[radial-gradient(1200px_600px_at_50%_-10%,rgba(56,189,248,0.08),transparent),radial-gradient(800px_400px_at_80%_30%,rgba(147,51,234,0.06),transparent)]" />
 
       <Navbar onCtaClick={() => setShowModal(true)} />
 
-      <main className="relative z-0">
+      <main className="relative z-10">
         <Hero onCtaClick={() => setShowModal(true)} />
         <Features />
+
+        {/* Small in-between band to add rhythm down the page */}
         <section className="py-8">
           <div className="mx-auto max-w-5xl px-6">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -65,7 +71,10 @@ function App() {
             </div>
           </div>
         </section>
+
         <Programs />
+        <Coaches />
+        <FAQ />
 
         {/* CTA Section */}
         <section id="cta" className="py-24">
